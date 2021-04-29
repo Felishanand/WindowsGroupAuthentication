@@ -4,12 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.DirectoryServices.AccountManagement;
 using System.Linq;
+using System.Security.Principal;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace Main.Controllers
-{
-    [Authorize]
+{   
     [Route("api/[controller]")]
     [ApiController]
     public class ProjectAController : ControllerBase
@@ -21,7 +21,7 @@ namespace Main.Controllers
             return User.Claims.Select(s => s.Type).ToList();
         }
 
-        [Authorize]
+        [Authorize(Roles ="Group1")]
         [Route("User")]
         [HttpGet]
         public string GetUser()
@@ -29,6 +29,7 @@ namespace Main.Controllers
             return User.Identity.Name;
         }
 
+        [Authorize(Roles = "Group1")]
         [Route("Groups")]
         [HttpGet]
         public List<string> GetAllgroups()
@@ -49,14 +50,20 @@ namespace Main.Controllers
 
             return groups;
         }
-
-        // GET: api/ProjectA/Role
-        [Route("Roles")]
+                
+        [Route("Roles")]       
         [HttpGet]
         public IEnumerable<string> GetRoles()
-        {
+        {   
             var roles = User.Claims.Select(v => v.Value).ToList();
             return roles;
+        }
+
+        [Route("IsGroup")]
+        [HttpGet]
+        public string IsInGroup(string groupName)
+        {
+            return $"{User.Identity.Name} is {(Security.IsInGroup(User, groupName) ? ($"in the {groupName} ") :($"Not in the {groupName}"))}";
         }
 
         [Route("Users")]
@@ -79,6 +86,9 @@ namespace Main.Controllers
 
             return users;
         }
+       
+
+        
         private static PrincipalSearchResult<Principal> GetAllGroups(PrincipalContext ctx)
         {
             GroupPrincipal group = new GroupPrincipal(ctx);
