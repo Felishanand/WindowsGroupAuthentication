@@ -20,10 +20,11 @@ namespace Main
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
             Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
+             .UseWindowsService()
+             .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.UseUrls("https://localhost:44348", "https://localhost:44332");
                     webBuilder.UseStartup<Startup>();
-                })
-            .UseWindowsService();      
+                });
     }
 }

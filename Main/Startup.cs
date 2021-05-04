@@ -30,11 +30,11 @@ namespace Main
         {
             services.AddControllers();            
 
-            services.AddSingleton<IClaimsTransformation, ClaimsTransformer>();
 
             services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
                 .AddNegotiate();
 
+            services.AddSingleton<IClaimsTransformation, ClaimsTransformer>();
 
             //services.AddAuthentication(HttpSysDefaults.AuthenticationScheme);
 

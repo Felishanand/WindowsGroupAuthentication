@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace Main.Controllers
             _logger = logger;
         }
 
+        [Authorize(Roles = "Group2")]
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
