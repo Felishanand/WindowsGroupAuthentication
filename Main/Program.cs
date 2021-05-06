@@ -23,7 +23,8 @@ namespace Main
              .UseWindowsService()
              .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseUrls("https://localhost:44381");
+                    //webBuilder.UseUrls("https://localhost:44381");
+                    webBuilder.UseUrls("http://localhost:23915");
                     webBuilder.UseStartup<Startup>();
                 });
     }
