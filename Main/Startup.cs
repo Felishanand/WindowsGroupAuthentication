@@ -28,11 +28,13 @@ namespace Main
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();            
+            services.AddControllers();
 
 
-            services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
-                .AddNegotiate();
+            //services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
+            //    .AddNegotiate();
+            
+            services.AddAuthentication(Microsoft.AspNetCore.Server.HttpSys.HttpSysDefaults.AuthenticationScheme);
 
             services.AddSingleton<IClaimsTransformation, ClaimsTransformer>();
 
