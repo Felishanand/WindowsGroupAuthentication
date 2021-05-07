@@ -29,7 +29,10 @@ namespace Main.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> GetGroup1Values()
         {
-            var rng = new Random();
+            _logger.LogInformation($"Start Group1 Values : {DateTime.Now}");
+
+            var rng = new Random();            
+
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
                 Date = DateTime.Now.AddDays(index),

@@ -44,8 +44,11 @@ namespace Main
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
         {
+            var path = @"C:\\Logs\\Main";
+            loggerFactory.AddFile($"{path}\\Main.txt");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
